@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506132206) do
+ActiveRecord::Schema.define(version: 20160506133153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20160506132206) do
   create_table "journeybacks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "route_id"
   end
+
+  add_index "journeybacks", ["route_id"], name: "index_journeybacks_on_route_id", using: :btree
 
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -36,5 +39,6 @@ ActiveRecord::Schema.define(version: 20160506132206) do
 
   add_index "waypoints", ["route_id"], name: "index_waypoints_on_route_id", using: :btree
 
+  add_foreign_key "journeybacks", "routes"
   add_foreign_key "waypoints", "routes"
 end
