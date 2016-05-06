@@ -1,16 +1,26 @@
 require 'rails_helper'
 
 describe 'routes API' do
+  describe 'POST /routes' do
+    it 'creates a new route' do
+      post '/routes'
+
+      expect(response.status).to eq 201
+      expect(Route.all.length).to eq 1
+    end
+  end
+
   describe 'GET /routes' do
     it 'returns all the routes' do
-      2.times { FactoryGirl.create(:route) }
+      route_1 = FactoryGirl.create(:route)
+      route_2 = FactoryGirl.create(:route)
       get '/routes', {}, { 'Accept' => 'application/json' }
 
       expect(response.status).to eq 200
 
       routes_data = JSON.parse(response.body)
-      expect(routes_data[0]["id"]).to eq 1
-      expect(routes_data[1]["id"]).to eq 2
+      expect(routes_data[0]["id"]).to eq route_1.id
+      expect(routes_data[1]["id"]).to eq route_2.id
     end
   end
 

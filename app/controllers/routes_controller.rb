@@ -1,7 +1,13 @@
 class RoutesController < ApplicationController
+  respond_to :json
 
   def index
     render json: Route.all
+  end
+
+  def create
+    route = Route.new
+    respond_with route if route.save
   end
 
   def show
