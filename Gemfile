@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug'
   gem 'shoulda'
   gem 'factory_girl_rails'
+  gem 'responders', '~> 2.0'
 end
 
 group :development do

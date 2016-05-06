@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :routes
-  
+  resources :routes, shallow: true do
+    resources :waypoints
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
