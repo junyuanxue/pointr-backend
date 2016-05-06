@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :routes, shallow: true, :defaults => {:format => "json"} do
+  resources :journeys, shallow: true, :defaults => {:format => "json"} do
     resources :waypoints
   end
 

@@ -1,6 +1,6 @@
 include ActionDispatch::TestProcess
 
 FactoryGirl.define do
-  factory :route do
+  factory :journey do
   end
 end

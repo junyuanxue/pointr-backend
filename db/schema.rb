@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506173741) do
+ActiveRecord::Schema.define(version: 20160506195044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "routes", force: :cascade do |t|
+  create_table "journeys", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 20160506173741) do
     t.decimal  "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "route_id"
+    t.integer  "journey_id"
   end
 
-  add_index "waypoints", ["route_id"], name: "index_waypoints_on_route_id", using: :btree
+  add_index "waypoints", ["journey_id"], name: "index_waypoints_on_journey_id", using: :btree
 
-  add_foreign_key "waypoints", "routes"
+  add_foreign_key "waypoints", "journeys"
 end

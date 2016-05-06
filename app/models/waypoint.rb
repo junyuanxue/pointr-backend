@@ -1,6 +1,6 @@
 class Waypoint < ActiveRecord::Base
 
-  belongs_to :route
+  belongs_to :journey
 
   validates :latitude, numericality:
                        { greater_than_or_equal_to: -90,

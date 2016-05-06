@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Waypoint, type: :model do
 
-  it { is_expected.to belong_to :route }
+  it { is_expected.to belong_to :journey }
 
   it 'validates the latitude' do
     invalid_waypoint = Waypoint.new(latitude: 100.0, longitude: 10.0)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Route, type: :model do
+describe Journey, type: :model do
 
   it { is_expected.to have_many :waypoints }
 
