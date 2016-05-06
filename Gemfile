@@ -39,6 +39,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'responders', '~> 2.0'
   gem 'faker'
+  gem 'geokit-rails'
 end
 
 group :development do

@@ -13,7 +13,7 @@ describe 'journeys API' do
     it 'returns all the journeys' do
       journey_1 = FactoryGirl.create(:journey)
       journey_2 = FactoryGirl.create(:journey)
-      get '/journeys', {}, { 'Accept' => 'application/json' }
+      get '/journeys', {}, { 'Accept': 'application/json' }
 
       expect(response.status).to eq 200
 
@@ -27,8 +27,8 @@ describe 'journeys API' do
     it 'returns the journey and all its waypoints' do
       journey = FactoryGirl.create(:journey)
       request_headers = {
-        'Accept' => 'application/json',
-        'Content-Type' => 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
 
       waypoint_1 = FactoryGirl.build(:waypoint)
@@ -41,7 +41,7 @@ describe 'journeys API' do
            set_waypoint_params(waypoint_2.latitude, waypoint_2.longitude),
            request_headers
 
-      get "/journeys/#{journey.id}", {}, { 'Accept' => 'application/json' }
+      get "/journeys/#{journey.id}", {}, { 'Accept': 'application/json' }
 
       expect(response.status).to eq 200
 
@@ -51,8 +51,8 @@ describe 'journeys API' do
       waypoint_1_lat = journey_data["waypoints"][0]["latitude"]
       expect(BigDecimal.new(waypoint_1_lat)).to eq waypoint_1.latitude
 
-      waypoint_2_long = journey_data["waypoints"][1]["longitude"]
-      expect(BigDecimal.new(waypoint_2_long)).to eq waypoint_2.longitude
+      waypoint_2_lng = journey_data["waypoints"][1]["longitude"]
+      expect(BigDecimal.new(waypoint_2_lng)).to eq waypoint_2.longitude
     end
   end
 
