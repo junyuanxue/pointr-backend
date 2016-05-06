@@ -4,7 +4,6 @@ describe 'routes API' do
   describe 'POST /routes' do
     it 'creates a new route' do
       post '/routes'
-
       expect(response.status).to eq 201
       expect(Route.all.length).to eq 1
     end

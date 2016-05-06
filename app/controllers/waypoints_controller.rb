@@ -12,6 +12,12 @@ class WaypointsController < ApplicationController
     respond_with waypoint if waypoint.save
   end
 
+  def destroy
+    waypoint = Waypoint.find(params[:id])
+    waypoint.destroy
+    render json: { status: 200 }
+  end
+
   def waypoint_params
     params.require(:waypoint).permit(:latitude, :longitude)
   end
