@@ -1,6 +1,11 @@
 class WaypointsController < ApplicationController
   respond_to :json
 
+  def index
+    route = Route.find(params[:route_id])
+    render json: route.waypoints.all
+  end
+
   def create
     route = Route.find(params[:route_id])
     waypoint = route.waypoints.new(waypoint_params)

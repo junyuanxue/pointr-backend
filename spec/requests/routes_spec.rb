@@ -8,9 +8,9 @@ describe 'routes API' do
 
       expect(response.status).to eq 200
 
-      routes = JSON.parse(response.body)
-      expect(routes[0]["id"]).to eq 1
-      expect(routes[1]["id"]).to eq 2
+      routes_data = JSON.parse(response.body)
+      expect(routes_data[0]["id"]).to eq 1
+      expect(routes_data[1]["id"]).to eq 2
     end
   end
 end
