@@ -25,34 +25,44 @@ describe 'routes API' do
 
   describe 'GET /routes/:id' do
     it 'returns the route and all its waypoints' do
-      current_route = FactoryGirl.create(:route)
+      route = FactoryGirl.create(:route)
       request_headers = {
         'Accept' => 'application/json',
         'Content-Type' => 'application/json'
       }
 
       waypoint_1 = FactoryGirl.build(:waypoint)
-      post "/routes/#{current_route.id}/waypoints",
+      post "/routes/#{route.id}/waypoints",
            set_waypoint_params(waypoint_1.latitude, waypoint_1.longitude),
            request_headers
 
       waypoint_2 = FactoryGirl.build(:waypoint)
-      post "/routes/#{current_route.id}/waypoints",
+      post "/routes/#{route.id}/waypoints",
            set_waypoint_params(waypoint_2.latitude, waypoint_2.longitude),
            request_headers
 
-      get "/routes/#{current_route.id}", {}, { 'Accept' => 'application/json' }
+      get "/routes/#{route.id}", {}, { 'Accept' => 'application/json' }
 
       expect(response.status).to eq 200
 
-      current_route_data = JSON.parse(response.body)
-      expect(current_route_data["route"]["id"]).to eq current_route.id
+      route_data = JSON.parse(response.body)
+      expect(route_data["route"]["id"]).to eq route.id
 
-      waypoint_1_lat = current_route_data["waypoints"][0]["latitude"]
+      waypoint_1_lat = route_data["waypoints"][0]["latitude"]
       expect(BigDecimal.new(waypoint_1_lat)).to eq waypoint_1.latitude
 
-      waypoint_2_long = current_route_data["waypoints"][1]["longitude"]
+      waypoint_2_long = route_data["waypoints"][1]["longitude"]
       expect(BigDecimal.new(waypoint_2_long)).to eq waypoint_2.longitude
+    end
+  end
+
+  describe 'DELETE /routes/:id' do
+    it 'deletes a route' do
+      route = FactoryGirl.create(:route)
+      delete "/routes/#{route.id}"
+
+      expect(response.status).to eq 200
+      expect(Route.all).not_to include route
     end
   end
 end

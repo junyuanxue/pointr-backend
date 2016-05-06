@@ -16,4 +16,10 @@ class RoutesController < ApplicationController
                              waypoints: route.waypoints }
     render json: route_with_waypoints
   end
+
+  def destroy
+    route = Route.find(params[:id])
+    route.destroy
+    render json: { status: 200 }
+  end
 end
