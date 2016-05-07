@@ -8,6 +8,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'database_cleaner'
+require 'pry'
 
 require 'requests/request_helper'
 

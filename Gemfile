@@ -40,6 +40,7 @@ group :development, :test do
   gem 'responders', '~> 2.0'
   gem 'faker'
   gem 'geokit-rails'
+  gem 'pry'
 end
 
 group :development do
