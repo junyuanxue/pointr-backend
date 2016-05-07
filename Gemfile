@@ -39,6 +39,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'responders', '~> 2.0'
   gem 'faker'
+  gem 'geokit-rails'
+  gem 'pry'
 end
 
 group :development do
@@ -47,6 +49,7 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'rack-cors', :require => 'rack/cors'
 end
 
 group :test do

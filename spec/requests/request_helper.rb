@@ -1,8 +1,8 @@
 def set_waypoint_params(latitude, longitude)
-  { 'waypoint' =>
+  { 'waypoint':
     {
-      'latitude' => latitude,
-      'longitude' => longitude
+      'latitude': latitude,
+      'longitude': longitude
     }
   }.to_json
 end

@@ -8,8 +8,8 @@ describe 'waypoints API' do
 
   before do
     request_headers = {
-      'Accept' => 'application/json',
-      'Content-Type' => 'application/json'
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     }
 
     post "/journeys/#{journey.id}/waypoints",
@@ -32,7 +32,7 @@ describe 'waypoints API' do
 
   describe 'GET /journeys/:journey_id/waypoints' do
     it 'return all the waypoints of a single journey' do
-      get "/journeys/#{journey.id}/waypoints", {}, { 'Accept' => 'application/json' }
+      get "/journeys/#{journey.id}/waypoints", {}, { 'Accept': 'application/json' }
       expect(response.status).to eq 200
 
       journey_data = JSON.parse(response.body)

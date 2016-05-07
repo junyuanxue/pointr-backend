@@ -14,4 +14,24 @@ describe Waypoint, type: :model do
     expect(invalid_waypoint.save).to be false
   end
 
+  let!(:waypoint) { FactoryGirl.create(:waypoint, latitude: 51.517534, longitude: -0.073270) }
+
+  describe '#show_distance_to' do
+    it 'shows the distance between current location and a waypoint' do
+      here = { "latitude": 51.519825, "longitude": -0.075767 }
+      expect(waypoint.show_distance_to(here)).to eq "308m"
+    end
+  end
+
+  describe '#near?' do
+    it 'returns true when current location is near a waypoint' do
+      here = { "latitude": 51.517534, "longitude": -0.073295 }
+      expect(waypoint.near?(here)).to be true
+    end
+
+    it 'returns false when current location is not near a waypoint' do
+      there = { "latitude": 51.523315, "longitude": -0.074730 }
+      expect(waypoint.near?(there)).to be false
+    end
+  end
 end
