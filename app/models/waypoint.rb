@@ -12,12 +12,14 @@ class Waypoint < ActiveRecord::Base
   acts_as_mappable lat_column_name: :latitude,
                    lng_column_name: :longitude
 
+  SCOPE = 10
+
   def show_distance_to(location)
     "#{calculate_distance_to(location)}m"
   end
 
   def near?(location)
-    calculate_distance_to(location) <= 10
+    calculate_distance_to(location) <= SCOPE
   end
 
   private
