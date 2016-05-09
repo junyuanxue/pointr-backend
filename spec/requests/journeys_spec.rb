@@ -50,6 +50,7 @@ describe 'journeys API' do
 
       journey_data = JSON.parse(response.body)
       expect(journey_data["journey"]["id"]).to eq journey.id
+      expect(journey_data["journey"]["description"]).to eq journey.description
 
       waypoint_1_lat = journey_data["waypoints"][0]["latitude"]
       expect(BigDecimal.new(waypoint_1_lat)).to eq waypoint_1.latitude

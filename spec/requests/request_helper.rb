@@ -1,8 +1,9 @@
-def set_waypoint_params(latitude, longitude)
+def set_waypoint_params(latitude, longitude, description='')
   { 'waypoint':
     {
       'latitude': latitude,
-      'longitude': longitude
+      'longitude': longitude,
+      'description': description
     }
   }.to_json
 end
