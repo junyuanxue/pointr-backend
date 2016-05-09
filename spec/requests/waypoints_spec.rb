@@ -13,11 +13,15 @@ describe 'waypoints API' do
     }
 
     post "/journeys/#{journey.id}/waypoints",
-         set_waypoint_params(waypoint_1.latitude, waypoint_1.longitude),
+         set_waypoint_params(waypoint_1.latitude,
+                             waypoint_1.longitude,
+                             waypoint_1.description),
          request_headers
 
     post "/journeys/#{journey.id}/waypoints",
-         set_waypoint_params(waypoint_2.latitude, waypoint_2.longitude),
+         set_waypoint_params(waypoint_2.latitude,
+                             waypoint_2.longitude,
+                             waypoint_2.description),
          request_headers
   end
 
@@ -26,6 +30,7 @@ describe 'waypoints API' do
       expect(response.status).to eq 201
       expect(Waypoint.last.latitude).to eq waypoint_2.latitude
       expect(Waypoint.last.longitude).to eq waypoint_2.longitude
+      expect(Waypoint.last.description).to eq waypoint_2.description
       expect(Waypoint.last.journey_id).to eq journey.id
     end
   end
@@ -38,9 +43,11 @@ describe 'waypoints API' do
       journey_data = JSON.parse(response.body)
       waypoint_1_lat = BigDecimal.new(journey_data[0]["latitude"])
       expect(waypoint_1_lat).to eq waypoint_1.latitude
+      expect(journey_data[0]["description"]).to eq waypoint_1.description
 
       waypoint_2_long = BigDecimal.new(journey_data[1]["longitude"])
       expect(waypoint_2_long).to eq waypoint_2.longitude
+      expect(journey_data[1]["description"]).to eq waypoint_2.description
     end
   end
 

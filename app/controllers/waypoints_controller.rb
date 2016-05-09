@@ -20,6 +20,6 @@ class WaypointsController < ApplicationController
   end
 
   def waypoint_params
-    params.require(:waypoint).permit(:latitude, :longitude)
+    params.require(:waypoint).permit(:latitude, :longitude, :description)
   end
 end
