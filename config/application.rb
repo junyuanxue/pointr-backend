@@ -9,6 +9,9 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
+
+require 'rack'
+require 'rack/cors'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -17,7 +20,7 @@ Bundler.require(*Rails.groups)
 
 module WayBackBackend
   class Application < Rails::Application
-    
+
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins '*'

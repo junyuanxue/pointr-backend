@@ -1,11 +1,18 @@
 require 'rails_helper'
 
 describe 'journeys API' do
+  let!(:request_headers) { { 'Accept': 'application/json',
+                             'Content-Type': 'application/json' } }
+
   describe 'POST /journeys' do
     it 'creates a new journey' do
-      post '/journeys'
+      journey = FactoryGirl.build(:journey)
+      post '/journeys',
+           set_journey_params(journey.description),
+           request_headers
+
       expect(response.status).to eq 201
-      expect(Journey.all.length).to eq 1
+      expect(Journey.last.description).to eq journey.description
     end
   end
 
@@ -19,17 +26,13 @@ describe 'journeys API' do
 
       journeys_data = JSON.parse(response.body)
       expect(journeys_data[0]["id"]).to eq journey_1.id
-      expect(journeys_data[1]["id"]).to eq journey_2.id
+      expect(journeys_data[1]["description"]).to eq journey_2.description
     end
   end
 
   describe 'GET /journeys/:id' do
     it 'returns the journey and all its waypoints' do
       journey = FactoryGirl.create(:journey)
-      request_headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
 
       waypoint_1 = FactoryGirl.build(:waypoint)
       post "/journeys/#{journey.id}/waypoints",
