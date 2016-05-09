@@ -3,37 +3,35 @@ require 'rails_helper'
 describe 'journeys API' do
   let!(:request_headers) { { 'Accept': 'application/json',
                              'Content-Type': 'application/json' } }
+  let!(:journey) { FactoryGirl.create(:journey) }
 
   describe 'POST /journeys' do
     it 'creates a new journey' do
-      journey = FactoryGirl.build(:journey)
+      new_journey = FactoryGirl.build(:journey)
       post '/journeys',
-           set_journey_params(journey.description),
+           set_journey_params(new_journey.description),
            request_headers
 
       expect(response.status).to eq 201
-      expect(Journey.last.description).to eq journey.description
+      expect(Journey.last.description).to eq new_journey.description
     end
   end
 
   describe 'GET /journeys' do
     it 'returns all the journeys' do
-      journey_1 = FactoryGirl.create(:journey)
-      journey_2 = FactoryGirl.create(:journey)
+      another_journey = FactoryGirl.create(:journey)
       get '/journeys', {}, { 'Accept': 'application/json' }
 
       expect(response.status).to eq 200
 
       journeys_data = JSON.parse(response.body)
-      expect(journeys_data[0]["id"]).to eq journey_1.id
-      expect(journeys_data[1]["description"]).to eq journey_2.description
+      expect(journeys_data[0]["id"]).to eq journey.id
+      expect(journeys_data[1]["description"]).to eq another_journey.description
     end
   end
 
   describe 'GET /journeys/:id' do
     it 'returns the journey and all its waypoints' do
-      journey = FactoryGirl.create(:journey)
-
       waypoint_1 = FactoryGirl.build(:waypoint)
       post "/journeys/#{journey.id}/waypoints",
            set_waypoint_params(waypoint_1.latitude, waypoint_1.longitude),
@@ -60,9 +58,21 @@ describe 'journeys API' do
     end
   end
 
+  describe 'PATCH journeys/:id' do
+    it 'updates a journey' do
+      patch "/journeys/#{journey.id}",
+            set_journey_params("New journey description"),
+            request_headers
+
+      expect(response.status).to eq 200
+
+      updated_journey = Journey.find(journey.id)
+      expect(updated_journey.description).to eq "New journey description"
+    end
+  end
+
   describe 'DELETE /journeys/:id' do
     it 'deletes a journey' do
-      journey = FactoryGirl.create(:journey)
       delete "/journeys/#{journey.id}"
 
       expect(response.status).to eq 200

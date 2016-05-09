@@ -18,6 +18,12 @@ class JourneysController < ApplicationController
     render json: journey_with_waypoints
   end
 
+  def update
+    journey = Journey.find(params[:id])
+    journey.update(journey_params)
+    render json: journey
+  end
+
   def destroy
     journey = Journey.find(params[:id])
     journey.destroy
