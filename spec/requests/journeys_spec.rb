@@ -58,7 +58,7 @@ describe 'journeys API' do
     end
   end
 
-  describe 'PATCH journeys/:id' do
+  describe 'PATCH /journeys/:id' do
     it 'updates a journey' do
       patch "/journeys/#{journey.id}",
             set_journey_params("New journey description"),

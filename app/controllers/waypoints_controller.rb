@@ -13,6 +13,12 @@ class WaypointsController < ApplicationController
     respond_with waypoint if waypoint.save
   end
 
+  def update
+    waypoint = Waypoint.find(params[:id])
+    waypoint.update(waypoint_params)
+    render json: waypoint
+  end
+
   def destroy
     waypoint = Waypoint.find(params[:id])
     waypoint.destroy
