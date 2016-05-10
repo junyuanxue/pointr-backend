@@ -5,13 +5,10 @@ describe 'waypoints API' do
   let!(:journey) { FactoryGirl.create(:journey) }
   let!(:waypoint_1) { FactoryGirl.build(:waypoint, journey: journey) }
   let!(:waypoint_2) { FactoryGirl.build(:waypoint, journey: journey) }
+  let!(:request_headers) { { 'Accept': 'application/json',
+                             'Content-Type': 'application/json' } }
 
   before do
-    request_headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-
     post "/journeys/#{journey.id}/waypoints",
          set_waypoint_params(waypoint_1.latitude,
                              waypoint_1.longitude,
@@ -48,6 +45,22 @@ describe 'waypoints API' do
       waypoint_2_long = BigDecimal.new(journey_data[1]["longitude"])
       expect(waypoint_2_long).to eq waypoint_2.longitude
       expect(journey_data[1]["description"]).to eq waypoint_2.description
+    end
+  end
+
+  describe 'PATCH /waypoints/:id' do
+    it 'updates a waypoint' do
+      waypoint = journey.waypoints.last
+      patch "/waypoints/#{waypoint.id}",
+            set_waypoint_params(waypoint.latitude,
+                                waypoint.longitude,
+                                "New waypoint description"),
+            request_headers
+
+      expect(response.status).to eq 200
+
+      updated_waypoint = Waypoint.find(waypoint.id)
+      expect(updated_waypoint.description).to eq "New waypoint description"
     end
   end
 
