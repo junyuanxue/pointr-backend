@@ -11,6 +11,7 @@ The code is test-driven with RSpec-Capybara. To run all the tests, simply run `r
 ## Tools :wrench:
 * Ruby
 * Ruby on Rails
+* Active Record
 * RSpec-Capybara
 * Factory Girl
 * Faker
